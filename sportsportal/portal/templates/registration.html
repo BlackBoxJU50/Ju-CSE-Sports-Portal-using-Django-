@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Sports Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        header {
+            background: #1e3c72;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #FFD700; /* Golden Color */
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57; /* Brighter golden hover */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #FFD700; /* Golden Color */
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #fff;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        }
+
+        button {
+            background: #FFD700; /* Golden Color */
+            border: none;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #ffdd57;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1e3c72;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">CSE SPORTS</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'fixtures' %}">Fixtures & Results</a></li>
+                <li><a href="https://juniv.edu/department/cse">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Register as a Player</h2>
+            <form method="POST" action="/api/register/player/">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="user" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="team_name">Team Name:</label>
+                <input type="text" id="team_name" name="team_name" required>
+
+                <label for="game_name">Game Name:</label>
+                <input type="text" id="game_name" name="game_name" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <h2>Register as a Team Manager</h2>
+            <form method="POST" action="/api/register/manager/">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="user" required>
+
+                <label for="team_name">Team Name:</label>
+                <input type="text" id="team_name" name="team_name" required>
+
+                <label for="game_name">Game Name:</label>
+                <input type="text" id="game_name" name="game_name" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Sports Portal. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

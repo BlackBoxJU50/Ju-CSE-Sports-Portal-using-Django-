@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixtures & Results - CSE Sports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .teams-container {
+            width: 90%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, #00ADB5, #1e3c72);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+            margin-bottom: 30px;
+            color: white;
+        }
+    
+        .teams-container h2, .teams-container h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: #FFD700; /* Golden color */
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    
+        .teams-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .team-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #FFD700; /* Border matches golden theme */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        .team-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 215, 0, 0.2); /* Light golden hover effect */
+        }
+    
+        @media (max-width: 768px) {
+            .teams-container {
+                width: 100%;
+            }
+    
+            .team-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+    
+            .teams-container h2, .teams-container h3 {
+                font-size: 1.5rem;
+            }
+        }
+    
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fixtures-container {
+            width: 90%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1e3c72, #00ADB5);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+            margin-bottom: 30px;
+            color: white;
+        }
+    
+        .fixtures-container h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            color: #FFD700; /* Golden color */
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    
+        .fixtures-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .fixture-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #FFD700; /* Border matches golden theme */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        .fixture-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 215, 0, 0.2); /* Light golden hover effect */
+        }
+    
+        .fixture-item .date {
+            font-weight: bold;
+            color: #FF4500; /* Orange for emphasis */
+        }
+    
+        .fixture-item .teams {
+            font-size: 1.2rem;
+            color: white;
+            text-align: center;
+        }
+    
+        .fixture-item .result {
+            font-size: 1rem;
+            font-weight: bold;
+            color: red;
+        }
+    
+        @media (max-width: 768px) {
+            .fixtures-container {
+                width: 100%;
+            }
+    
+            .fixture-item {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+    
+            .fixtures-container h2 {
+                font-size: 1.8rem;
+            }
+        }
+    
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <header class=" text-white">
+        <nav class="container bg-[#1e3c72] mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+          <ul class="flex flex-wrap gap-6 items-center w-full justify-center md:justify-start">
+            <li class="font-bold text-2xl text-[#00ADB5]"><a href="{% url 'home' %}">CSE SPORTS</a></li>
+            <li><a href="{% url 'home' %}" class="hover:text-[#00ADB5] transition duration-200">Home</a></li>
+            <li><a href="{% url 'register' %}" class="hover:text-[#00ADB5] transition duration-200">Register</a></li>
+            <li><a href="{% url 'fixtures' %}" class="hover:text-[#00ADB5] transition duration-200">Fixtures & Results</a></li>
+            <li><a href="https://juniv.edu/department/cse" class="hover:text-[#00ADB5] transition duration-200">About</a></li>
+          </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- Fixtures Section -->
+        <div class="fixtures-container">
+            <h2>Upcoming Fixtures & Latest Results</h2>
+            <ul class="fixtures-list">
+                {% for fixture in fixtures %}
+                <li class="fixture-item">
+                    <div class="date">{{ fixture.date }}</div>
+                    <div class="teams">{{ fixture.teams }}</div>
+                    <div class="result">{{ fixture.result }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- Boys Teams Section -->
+        <div class="teams-container">
+            <h2>Teams List</h2>
+            <ul class="teams-list">
+                {% for manager in managers %}
+                <li class="team-item">
+                    <strong>Team:</strong> {{ manager.team_name }} 
+                    <br>
+                    <strong>Manager:</strong> {{ manager.user.username }}
+                </li>
+                {% endfor %}
+            </ul>
+        
+            <h2>Players List</h2>
+            <ul class="teams-list">
+                {% for player in players %}
+                <li class="team-item">
+                    <strong>Player:</strong> {{ player.user.username }} 
+                    <br>
+                    <strong>Team:</strong> {{ player.team_name }}
+                    <br>
+                    <strong>Game:</strong> {{ player.game_name }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p class="text-center text-gray-500">© 2025 CSE Sports Portal. All rights reserved.</p>
+    </footer>
+</body>
+</html>
