@@ -3,236 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixtures & Results - CSE Sports</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Game Fixtures</title>
     <style>
-        .teams-container {
-            width: 90%;
-            max-width: 1200px;
-            background: linear-gradient(135deg, #00ADB5, #1e3c72);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1.5s ease-in-out;
-            margin-bottom: 30px;
-            color: white;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            animation: fadeIn 1s ease-in-out;
         }
-    
-        .teams-container h2, .teams-container h3 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            color: #FFD700; /* Golden color */
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-    
-        .teams-list {
+      
+
+        header {
+            background: #1e3c72;
+            color: #fff;
+            padding: 30px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
-        }
-    
-        .team-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #FFD700; /* Border matches golden theme */
-            border-radius: 8px;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.2rem;
+            justify-content: space-around; /* Changed from space-between to space-around for reduced gaps */
+            font-size: 1.2rem; /* Added this to increase the font size */
+        }
+        
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #FFD700;
             font-weight: bold;
-            text-transform: uppercase;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: color 0.3s ease;
         }
-    
-        .team-item:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255, 215, 0, 0.2); /* Light golden hover effect */
+
+        nav ul li a:hover {
+            color: #ffdd57;
         }
-    
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: zoomIn 0.6s ease;
+        }
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            animation: fadeIn 1s ease;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            animation: fadeIn 1s ease;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0077cc;
+            color: white;
+        }
+        td {
+            background-color: #f4f4f4;
+        }
+        td:hover {
+            background-color: #e6e6e6;
+            transition: background-color 0.3s ease;
+        }
+        .game-selector {
+            text-align: center;
+            margin: 20px 0;
+            animation: fadeIn 1.2s ease;
+        }
+        .game-selector select {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .game-selector button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .game-selector button:hover {
+            background-color: #005da8;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .teams-container {
-                width: 100%;
-            }
-    
-            .team-item {
+            .navbar {
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
             }
-    
-            .teams-container h2, .teams-container h3 {
+            .navbar a {
+                margin: 5px 0;
+            }
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            table, th, td {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
                 font-size: 1.5rem;
             }
-        }
-    
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+            .game-selector select, .game-selector button {
+                font-size: 0.9rem;
+                padding: 8px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .fixtures-container {
-            width: 90%;
-            max-width: 1200px;
-            background: linear-gradient(135deg, #1e3c72, #00ADB5);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1.5s ease-in-out;
-            margin-bottom: 30px;
-            color: white;
-        }
-    
-        .fixtures-container h2 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
-            color: #FFD700; /* Golden color */
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-        }
-    
-        .fixtures-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-    
-        .fixture-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #FFD700; /* Border matches golden theme */
-            border-radius: 8px;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-    
-        .fixture-item:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255, 215, 0, 0.2); /* Light golden hover effect */
-        }
-    
-        .fixture-item .date {
-            font-weight: bold;
-            color: #FF4500; /* Orange for emphasis */
-        }
-    
-        .fixture-item .teams {
-            font-size: 1.2rem;
-            color: white;
-            text-align: center;
-        }
-    
-        .fixture-item .result {
-            font-size: 1rem;
-            font-weight: bold;
-            color: red;
-        }
-    
-        @media (max-width: 768px) {
-            .fixtures-container {
-                width: 100%;
-            }
-    
-            .fixture-item {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-    
-            .fixtures-container h2 {
-                font-size: 1.8rem;
-            }
-        }
-    
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            table, th, td {
+                font-size: 0.8rem;
             }
         }
     </style>
-    
 </head>
 <body>
-    <header class=" text-white">
-        <nav class="container bg-[#1e3c72] mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
-          <ul class="flex flex-wrap gap-6 items-center w-full justify-center md:justify-start">
-            <li class="font-bold text-2xl text-[#00ADB5]"><a href="{% url 'home' %}">CSE SPORTS</a></li>
-            <li><a href="{% url 'home' %}" class="hover:text-[#00ADB5] transition duration-200">Home</a></li>
-            <li><a href="{% url 'register' %}" class="hover:text-[#00ADB5] transition duration-200">Register</a></li>
-            <li><a href="{% url 'fixtures' %}" class="hover:text-[#00ADB5] transition duration-200">Fixtures & Results</a></li>
-            <li><a href="https://juniv.edu/department/cse" class="hover:text-[#00ADB5] transition duration-200">About</a></li>
-          </ul>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}"class="px-3 py-1 rounded hover:bg-white/20 hover:text-yellow-400" >CSE SPORTS</a></li>
+                <li><a href="{% url 'home' %}" class="px-3 py-1 rounded hover:bg-white/20 hover:text-yellow-400">Home</a></li>
+                <li><a href="{% url 'fixtures' %}" class="px-3 py-1 rounded hover:bg-white/20 hover:text-yellow-400">Fixtures & Results</a></li>
+                <li><a href="{% url 'register' %} " class="px-3 py-1 rounded hover:bg-white/20 hover:text-yellow-400">Register</a></li>
+                <li><a href="https://juniv.edu/department/cse" class="px-3 py-1 rounded hover:bg-white/20 hover:text-yellow-400">About</a></li>
+            </ul>
         </nav>
     </header>
-    
-    <main>
-        <!-- Fixtures Section -->
-        <div class="fixtures-container">
-            <h2>Upcoming Fixtures & Latest Results</h2>
-            <ul class="fixtures-list">
-                {% for fixture in fixtures %}
-                <li class="fixture-item">
-                    <div class="date">{{ fixture.date }}</div>
-                    <div class="teams">{{ fixture.teams }}</div>
-                    <div class="result">{{ fixture.result }}</div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <!-- Boys Teams Section -->
-        <div class="teams-container">
-            <h2>Teams List</h2>
-            <ul class="teams-list">
-                {% for manager in managers %}
-                <li class="team-item">
-                    <strong>Team:</strong> {{ manager.team_name }} 
-                    <br>
-                    <strong>Manager:</strong> {{ manager.user.username }}
-                </li>
-                {% endfor %}
-            </ul>
-        
-            <h2>Players List</h2>
-            <ul class="teams-list">
-                {% for player in players %}
-                <li class="team-item">
-                    <strong>Player:</strong> {{ player.user.username }} 
-                    <br>
-                    <strong>Team:</strong> {{ player.team_name }}
-                    <br>
-                    <strong>Game:</strong> {{ player.game_name }}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </main>
 
-    <footer>
-        <p class="text-center text-gray-500">© 2025 CSE Sports Portal. All rights reserved.</p>
-    </footer>
+    <div class="container">
+        <h1>Game Fixtures</h1>
+
+        <!-- Game Selector -->
+        <div class="game-selector">
+            <form method="GET" action="">
+                <label for="game-select">Choose a Game:</label>
+                <select id="game-select" name="game" onchange="this.form.submit()">
+                    <option value="Badminton" {% if game == "Badminton" %}selected{% endif %}>Badminton</option>
+                    <option value="Cricket" {% if game == "Cricket" %}selected{% endif %}>Cricket</option>
+                    <option value="Football" {% if game == "Football" %}selected{% endif %}>Football</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Fixtures Table -->
+        <h2 id="fixtures">{{ game }} Fixtures</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Teams</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fixture in fixtures %}
+                <tr>
+                    <td>{{ fixture.date }}</td>
+                    <td>{{ fixture.teams }}</td>
+                    <td>{{ fixture.result }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No fixtures available for {{ game }}.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Players Table -->
+        <h2 id="players">{{ game }} Players</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Email</th>
+                    <th>Team Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                <tr>
+                    <td>{{ player.user.username }}</td>
+                    <td>{{ player.email }}</td>
+                    <td>{{ player.team_name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No players registered for {{ game }}.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Managers Table -->
+        <h2 id="managers">{{ game }} Managers</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Manager</th>
+                    <th>Team Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manager in managers %}
+                <tr>
+                    <td>{{ manager.user.username }}</td>
+                    <td>{{ manager.team_name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No managers registered for {{ game }}.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
