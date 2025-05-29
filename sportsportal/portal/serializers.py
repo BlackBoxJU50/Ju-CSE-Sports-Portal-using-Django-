@@ -8,10 +8,29 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email']
 
 class PlayerSerializer(serializers.ModelSerializer):
+    user = serializers.CharField()
+
     class Meta:
         model = Player
         fields = ['user', 'email', 'team_name', 'game_name', 'password']
-        
+
+    def validate_user(self, value):
+        user, _ = User.objects.get_or_create(username=value)
+        return user
+
+    def create(self, validated_data):
+        # Update Player if user already exists
+        player, created = Player.objects.update_or_create(
+            user=validated_data['user'],
+            defaults={
+                'email': validated_data['email'],
+                'team_name': validated_data['team_name'],
+                'game_name': validated_data['game_name'],
+                'password': validated_data['password']
+            }
+        )
+        return player
+     
 class TeamManagerSerializer(serializers.ModelSerializer):
     # Allow accepting a username instead of a user ID
     user = serializers.CharField()
