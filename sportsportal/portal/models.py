@@ -22,6 +22,9 @@ class Game(models.Model):
         return f"{self.name} ({self.team_count} teams)"
 
 
+
+
+
 # Abstract BaseManager class for Managers
 # Abstract BaseManager class for Managers
 class BaseManager(models.Model):
