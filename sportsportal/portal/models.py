@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Abstract BasePlayer class for Players
 class BasePlayer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
