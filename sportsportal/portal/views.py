@@ -10,43 +10,42 @@ from .models import (
     BadmintonManager,
     CricketManager,
     FootballManager,
-    Fixture
+    Fixture,
+    Game
 )
 from django.contrib.auth.models import User
 
 
 # Registration Views for Players
-
-
-
 class RegisterPlayerView(APIView):
     def post(self, request):
         game = request.data.get('game_name')
         username = request.data.get('user')
         team_name = request.data.get('team_name')
         email = request.data.get('email')
+        image = request.FILES.get('image')  # ✅ handle image
 
         # Create the user if it doesn't exist
         user, created = User.objects.get_or_create(username=username)
         if created:
-            user.set_password("defaultpassword")  # Optional: Set a default password
+            user.set_password("defaultpassword")
             user.save()
 
         try:
             if game == "Badminton":
                 BadmintonPlayer.objects.update_or_create(
                     user=user,
-                    defaults={'team_name': team_name, 'email': email}
+                    defaults={'team_name': team_name, 'email': email, 'image': image}
                 )
             elif game == "Cricket":
                 CricketPlayer.objects.update_or_create(
                     user=user,
-                    defaults={'team_name': team_name, 'email': email}
+                    defaults={'team_name': team_name, 'email': email, 'image': image}
                 )
             elif game == "Football":
                 FootballPlayer.objects.update_or_create(
                     user=user,
-                    defaults={'team_name': team_name, 'email': email}
+                    defaults={'team_name': team_name, 'email': email, 'image': image}
                 )
             else:
                 return Response({'error': 'Invalid game name.'}, status=HTTP_400_BAD_REQUEST)
@@ -55,21 +54,21 @@ class RegisterPlayerView(APIView):
 
         return Response({'message': f"Player registered successfully for {game}."}, status=HTTP_201_CREATED)
 
-# Registration Views for Managers
-from .models import Game
 
+# Registration Views for Managers
 class RegisterManagerView(APIView):
     def post(self, request):
         game_name = request.data.get('game_name')
         username = request.data.get('user')
         team_name = request.data.get('team_name')
+        image = request.FILES.get('image')  # ✅ handle image
 
         # Ensure game exists in Game model
         game, created = Game.objects.get_or_create(name=game_name)
 
         # Create or retrieve user
         user, _ = User.objects.get_or_create(username=username)
-        user.set_password("defaultpassword")  # Optional: Set a password
+        user.set_password("defaultpassword")
         user.save()
 
         # Check if the manager already exists for this team
@@ -80,11 +79,11 @@ class RegisterManagerView(APIView):
 
         # Register manager and update game registration count
         if game_name == "Badminton":
-            BadmintonManager.objects.create(user=user, team_name=team_name)
+            BadmintonManager.objects.create(user=user, team_name=team_name, game=game, image=image)
         elif game_name == "Cricket":
-            CricketManager.objects.create(user=user, team_name=team_name)
+            CricketManager.objects.create(user=user, team_name=team_name, game=game, image=image)
         elif game_name == "Football":
-            FootballManager.objects.create(user=user, team_name=team_name)
+            FootballManager.objects.create(user=user, team_name=team_name, game=game, image=image)
         else:
             return Response({'error': 'Invalid game name.'}, status=HTTP_400_BAD_REQUEST)
 
@@ -94,12 +93,11 @@ class RegisterManagerView(APIView):
 
         return Response({'message': f"Manager registered successfully for {game_name}. Total teams: {game.team_count}."}, status=HTTP_201_CREATED)
 
+
 # View for Fetching Fixtures and Associated Players/Managers
 def fixture_view(request):
-    # Get the selected game from the query parameters (default to Badminton)
     selected_game = request.GET.get('game', 'Badminton')
 
-    # Fetch players and managers based on the selected game
     if selected_game == "Badminton":
         players = BadmintonPlayer.objects.all()
         managers = BadmintonManager.objects.all()
@@ -113,7 +111,6 @@ def fixture_view(request):
         players = []
         managers = []
 
-    # Fetch fixtures for the selected game
     fixtures = Fixture.objects.filter(game=selected_game)
 
     context = {
@@ -123,12 +120,12 @@ def fixture_view(request):
         'managers': managers,
     }
     return render(request, 'fixtures.html', context)
+
 # View for Registration Page
 def registration_view(request):
     return render(request, 'registration.html')
 
-
 # View for Home Page
 def home_view(request):
-    games = Game.objects.all()  # Fetch all registered games
+    games = Game.objects.all()
     return render(request, 'home.html', {'games': games})

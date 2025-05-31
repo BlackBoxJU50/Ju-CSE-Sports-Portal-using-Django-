@@ -6,9 +6,10 @@ class BasePlayer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     email = models.EmailField(default="default@example.com")
     team_name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='player_images/', null=True, blank=True)  # ✅ Added image field
 
     class Meta:
-        abstract = True # This serves as the base for individual game player tables
+        abstract = True  # This serves as the base for individual game player tables
 
     def __str__(self):
         return f"{self.user.username} - {self.team_name}"
@@ -20,20 +21,18 @@ class Game(models.Model):
     def __str__(self):
         return f"{self.name} ({self.team_count} teams)"
 
-
-# Abstract BaseManager class for Managers
 # Abstract BaseManager class for Managers
 class BaseManager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     team_name = models.CharField(max_length=100)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)  # Set default game ID
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, default=1)
+    image = models.ImageField(upload_to='manager_images/', null=True, blank=True)  # ✅ Added image field
 
     class Meta:
         abstract = True  # This serves as the base for individual game manager tables
 
     def __str__(self):
         return f"{self.user.username} - {self.team_name} ({self.game.name})"
-
 
 # Badminton Player and Manager Models
 class BadmintonPlayer(BasePlayer):
@@ -73,7 +72,7 @@ class Fixture(models.Model):
         ('Badminton', 'Badminton'),
         ('Cricket', 'Cricket'),
         ('Football', 'Football')
-    ])  # Specify the game type with predefined options
+    ])
 
     def __str__(self):
         return f"{self.teams} ({self.game}) - {self.date}"
